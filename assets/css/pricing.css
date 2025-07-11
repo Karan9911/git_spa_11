@@ -1,0 +1,130 @@
+/* Region price indicator in navbar */
+.region-price-indicator {
+    flex-shrink: 0;
+}
+
+.region-price-indicator .btn {
+    border-radius: 20px;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.region-price-indicator .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(46, 139, 87, 0.3);
+}
+
+/* Region selection modal */
+.region-select-btn {
+    padding: 1rem;
+    text-align: left;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.region-select-btn:hover {
+    border-color: var(--primary-color);
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.region-select-btn.active {
+    border-color: var(--primary-color);
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.region-select-btn i {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+/* Price breakdown */
+.price-breakdown {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid #e9ecef;
+}
+
+.price-breakdown .d-flex {
+    margin-bottom: 0.5rem;
+}
+
+.price-breakdown .d-flex:last-child {
+    margin-bottom: 0;
+}
+
+/* Therapist card price updates */
+.price-display {
+    transition: all 0.3s ease;
+}
+
+.price-display.updating {
+    opacity: 0.6;
+    transform: scale(0.95);
+}
+
+/* Modal enhancements */
+.booking-modal .modal-body {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+/* Time selection styling */
+#bookingTimeSelect optgroup {
+    font-weight: bold;
+    color: #495057;
+}
+
+#bookingTimeSelect option[data-night="true"] {
+    color: #856404;
+    background-color: #fff3cd;
+}
+
+/* Animation for price changes */
+@keyframes priceUpdate {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); color: var(--primary-color); }
+    100% { transform: scale(1); }
+}
+
+.price-updating {
+    animation: priceUpdate 0.5s ease-in-out;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .region-price-indicator {
+        margin-right: 0;
+    }
+    
+    .region-price-indicator .btn {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+    }
+    
+    .region-price-indicator .btn span {
+        display: none;
+    }
+    
+    .region-price-indicator .btn::after {
+        content: 'Region';
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .region-price-indicator .btn {
+        padding: 0.25rem 0.5rem;
+    }
+    
+    .region-price-indicator .btn::after {
+        content: '';
+    }
+    
+    .region-price-indicator .btn i {
+        margin: 0;
+    }
