@@ -276,8 +276,9 @@ function loginAdmin($username, $password) {
     $stmt->execute([$username, $username]);
     
     if ($admin = $stmt->fetch()) {
-        // Check if password is hashed or plain text (for backward compatibility)
-        if (password_verify($password, $admin['password']) || $admin['password'] === $password) {
+        // Check if password matches using MD5 or plain text (for backward compatibility)
+        $md5Password = md5($password);
+        if ($admin['password'] === $md5Password || $admin['password'] === $password) {
             // Regenerate session ID for security
             session_regenerate_id(true);
             
@@ -285,9 +286,9 @@ function loginAdmin($username, $password) {
             $_SESSION['admin_username'] = $admin['username'];
             $_SESSION['admin_email'] = $admin['email'];
             
-            // Update password to hashed version if it was plain text
+            // Update password to MD5 version if it was plain text
             if ($admin['password'] === $password) {
-                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                $hashedPassword = md5($password);
                 $updateStmt = $db->prepare("UPDATE admins SET password = ? WHERE id = ?");
                 $updateStmt->execute([$hashedPassword, $admin['id']]);
             }
@@ -312,7 +313,7 @@ function createAdminTable() {
 
 function createDefaultAdmin() {
     $db = getDB();
-    $hashedPassword = password_hash('admin123', PASSWORD_DEFAULT);
+    $hashedPassword = md5('admin123');
     $stmt = $db->prepare("INSERT IGNORE INTO admins (username, email, password) VALUES (?, ?, ?)");
     $stmt->execute(['admin', 'admin@spa.com', $hashedPassword]);
 }

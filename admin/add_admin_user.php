@@ -23,8 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($stmt->fetch()) {
                 $error = 'Username or email already exists';
             } else {
-                // Hash the password properly
-                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                // Hash the password using MD5
+                $hashedPassword = md5($password);
                 
                 // Insert new admin
                 $stmt = $db->prepare("INSERT INTO admins (username, email, password) VALUES (?, ?, ?)");
